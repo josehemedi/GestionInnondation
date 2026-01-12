@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@layer base {
+  :root {
+    /* Main theme - Deep tech blue with cyan accents */
+    --background: 216 28% 7%;
+    --foreground: 210 40% 98%;
+
+    --card: 216 28% 10%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 216 28% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 187 100% 50%;
+    --primary-foreground: 216 28% 7%;
+
+    --secondary: 216 28% 15%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 216 28% 18%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 187 100% 42%;
+    --accent-foreground: 216 28% 7%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --warning: 25 95% 53%;
+    --warning-foreground: 216 28% 7%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 210 40% 98%;
+
+    --info: 199 89% 48%;
+    --info-foreground: 210 40% 98%;
+
+    --border: 216 28% 20%;
+    --input: 216 28% 15%;
+    --ring: 187 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom IoT theme colors */
+    --water: 199 89% 48%;
+    --water-glow: 199 100% 60%;
+    --rain: 217 91% 60%;
+    --danger: 0 84% 60%;
+    --safe: 142 76% 36%;
+    
+    /* Glassmorphism */
+    --glass: 216 28% 12%;
+    --glass-border: 216 28% 25%;
+
+    --sidebar-background: 216 28% 8%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 187 100% 50%;
+    --sidebar-primary-foreground: 216 28% 7%;
+    --sidebar-accent: 216 28% 15%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 216 28% 20%;
+    --sidebar-ring: 187 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  code, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card/60 backdrop-blur-xl border border-glass-border rounded-xl;
+  }
+
+  .glass-panel {
+    @apply bg-card/40 backdrop-blur-lg border border-glass-border;
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3),
+                0 0 40px hsl(var(--primary) / 0.1);
+  }
+
+  .glow-danger {
+    box-shadow: 0 0 20px hsl(var(--danger) / 0.4),
+                0 0 40px hsl(var(--danger) / 0.2);
+  }
+
+  .glow-safe {
+    box-shadow: 0 0 15px hsl(var(--safe) / 0.3);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-info;
+  }
+
+  .bg-grid {
+    background-image: 
+      linear-gradient(to right, hsl(var(--border) / 0.3) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--border) / 0.3) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .water-wave {
+    background: linear-gradient(180deg, 
+      hsl(var(--water) / 0.1) 0%, 
+      hsl(var(--water) / 0.3) 50%,
+      hsl(var(--water) / 0.5) 100%);
+  }
+}
+
+@layer utilities {
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-wave {
+    animation: wave 2s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: translateY(0) scaleY(1); }
+    50% { transform: translateY(-5px) scaleY(1.05); }
+  }
+
+  @keyframes ripple {
+    0% { transform: scale(0.8); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+  }
+
+  .animate-ripple {
+    animation: ripple 1.5s ease-out infinite;
+  }
+}
