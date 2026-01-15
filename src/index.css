@@ -1,49 +1,39 @@
+/* 1. TOUJOURS EN PREMIER */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* 2. ENSUITE LES DIRECTIVES TAILWIND */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @layer base {
   :root {
     /* Main theme - Deep tech blue with cyan accents */
     --background: 216 28% 7%;
     --foreground: 210 40% 98%;
-
     --card: 216 28% 10%;
     --card-foreground: 210 40% 98%;
-
     --popover: 216 28% 10%;
     --popover-foreground: 210 40% 98%;
-
     --primary: 187 100% 50%;
     --primary-foreground: 216 28% 7%;
-
     --secondary: 216 28% 15%;
     --secondary-foreground: 210 40% 98%;
-
     --muted: 216 28% 18%;
     --muted-foreground: 215 20% 65%;
-
     --accent: 187 100% 42%;
     --accent-foreground: 216 28% 7%;
-
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
-
     --warning: 25 95% 53%;
     --warning-foreground: 216 28% 7%;
-
     --success: 142 76% 36%;
     --success-foreground: 210 40% 98%;
-
     --info: 199 89% 48%;
     --info-foreground: 210 40% 98%;
-
     --border: 216 28% 20%;
     --input: 216 28% 15%;
     --ring: 187 100% 50%;
-
     --radius: 0.75rem;
 
     /* Custom IoT theme colors */
