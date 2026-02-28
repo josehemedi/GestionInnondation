@@ -13,6 +13,8 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showReset, setShowReset] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
+  const [toggleButton, setToggleButton] = useState(false);
+  const [actif, setActif] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 

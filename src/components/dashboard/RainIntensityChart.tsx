@@ -1,7 +1,8 @@
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 interface RainData {
-  time: string;
+  // timestamp in milliseconds, not a formatted string
+  time: number;
   intensity: number;
 }
 
@@ -14,12 +15,12 @@ const RainIntensityChart = ({ data }: RainIntensityChartProps) => {
     <div className="glass-card p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-lg font-semibold">Intensité des précipitations</h3>
-          <p className="text-sm text-muted-foreground">Dernières 24 heures</p>
+          <h3 className="text-lg font-semibold">Distance</h3>
+          <p className="text-sm text-muted-foreground">Dernières valeurs</p>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-rain" />
-          <span className="text-sm text-muted-foreground">mm/h</span>
+          <span className="text-sm text-muted-foreground">cm</span>
         </div>
       </div>
 
@@ -33,14 +34,18 @@ const RainIntensityChart = ({ data }: RainIntensityChartProps) => {
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(216, 28%, 20%)" />
-            <XAxis 
-              dataKey="time" 
-              stroke="hsl(215, 20%, 65%)" 
+            <XAxis
+              dataKey="time"
+              type="number"
+              domain={["dataMin", "dataMax"]}
+              scale="time"
+              stroke="hsl(215, 20%, 65%)"
               fontSize={12}
               tickLine={false}
+              tickFormatter={(ts) => new Date(ts).toLocaleTimeString()}
             />
-            <YAxis 
-              stroke="hsl(215, 20%, 65%)" 
+            <YAxis
+              stroke="hsl(215, 20%, 65%)"
               fontSize={12}
               tickLine={false}
               axisLine={false}
@@ -53,6 +58,7 @@ const RainIntensityChart = ({ data }: RainIntensityChartProps) => {
                 color: "hsl(210, 40%, 98%)",
               }}
               labelStyle={{ color: "hsl(215, 20%, 65%)" }}
+              labelFormatter={(ts) => new Date(ts).toLocaleTimeString()}
             />
             <Area
               type="monotone"

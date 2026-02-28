@@ -18,12 +18,55 @@ const Register = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate account creation
-    setTimeout(() => {
+    if (!name || !email || !password) {
+      toast({
+        title: "Erreur",
+        description: "Veuillez remplir tous les champs",
+        variant: "destructive",
+      });
       setIsLoading(false);
-      toast({ title: "Demande envoyée", description: "Votre demande de compte a été envoyée à l'administrateur." });
-      navigate("/login");
-    }, 1500);
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:8080/api/connexion/inscription", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+  nom_complet: name,
+  email,
+  mot_de_passe: password,
+  actif: false,
+}),
+
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        toast({
+          title: "Demande envoyée",
+          description: "Votre demande de compte a été envoyée avec succès à l'administrateur.",
+        });
+        navigate("/login");
+      } else {
+        const errorData = await response.json();
+        toast({
+          title: "Erreur",
+          description: errorData.message || "Erreur lors de la création du compte",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Erreur",
+        description: "Impossible de se connecter au serveur",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
