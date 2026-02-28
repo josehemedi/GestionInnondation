@@ -12,6 +12,8 @@ import supabase from "../supabaseClient";
 const Dashboard = () => {
   const [waterLevel, setWaterLevel] = useState(0);
   const [distance, setDistance] = useState(0);
+  const [flowRate, setFlowRate] = useState(0);
+  const [totalLiters, setTotalLiters] = useState(0);
   // array of timestamp/intensity points for the chart
   const [rainData, setRainData] = useState<{ time: number; intensity: number }[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -28,6 +30,8 @@ const Dashboard = () => {
     if (!error && data.length > 0) {
       setWaterLevel(Number(data[0].level_cm));
       setDistance(Number(data[0].distance_cm ?? 0));
+      setFlowRate(Number(data[0].flow_rate_l_min ?? 0));
+      setTotalLiters(Number(data[0].total_liters ?? 0));
       setLastUpdate(new Date(data[0].created_at));
     }
   };
@@ -36,7 +40,7 @@ const Dashboard = () => {
   const fetchHistory = async () => {
     const { data, error } = await supabase
       .from("water_levels")
-      .select("created_at, level_cm, distance_cm")
+      .select("created_at, level_cm, distance_cm, flow_rate_l_min, total_liters")
       .order("created_at", { ascending: true })
       .limit(20);
 
@@ -70,6 +74,8 @@ const Dashboard = () => {
 
           setWaterLevel(Number(newData.level_cm));
           setDistance(Number(newData.distance_cm ?? 0));
+          setFlowRate(Number(newData.flow_rate_l_min ?? 0));
+          setTotalLiters(Number(newData.total_liters ?? 0));
           setLastUpdate(new Date(newData.created_at));
 
           setRainData((prev) => [
@@ -163,18 +169,18 @@ const Dashboard = () => {
           />
 
           <StatCard
-            title="Pression capteur"
-            value="1013"
-            unit="hPa"
-            icon={Gauge}
+            title="Volume total"
+            value={totalLiters.toFixed(1)}
+            unit="L"
+            icon={Waves}
             status="normal"
           />
 
           <StatCard
             title="Débit d'eau"
-            value="12.4"
+            value={flowRate.toFixed(1)}
             unit="L/min"
-            icon={Waves}
+            icon={Gauge}
             status="safe"
           />
         </div>
@@ -187,7 +193,6 @@ const Dashboard = () => {
               dangerThreshold={80}
               warningThreshold={60}
             />
-
             <RainIntensityChart data={rainData} />
           </div>
 
